@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/style/var.scss";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow-x: hidden;
+    background:  url("./assets/img/bg-top-right.png") top right no-repeat, url("./assets/img/bg-bottom-left.png") bottom left no-repeat fixed, var(--color-background);
+}
+
+h1, h2 {
+    font-family: var(--font-title);
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+h2 {
+    padding-left: 50px;;
+    font-weight: 400;
+    font-size: 1.2em;
+    font-style: italic;
+    letter-spacing:  -0.5px;
+    line-height: 0.5em;
+}
