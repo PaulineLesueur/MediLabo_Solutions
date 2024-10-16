@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { PatientDataComponent } from './patient-data/patient-data.component';
 
 @NgModule({
   declarations: [
     AppComponent // Déclarez uniquement AppComponent ici
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    PatientDataComponent
   ],
   providers: [],
   bootstrap: [AppComponent] // Composant racine
