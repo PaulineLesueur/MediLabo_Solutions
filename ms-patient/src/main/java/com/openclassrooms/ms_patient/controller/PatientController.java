@@ -16,7 +16,7 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping("/patients")
-    public List<Patient> getAllPatients() {
-        return patientService.getAllPatients();
+    public Iterable<Patient> getAllPatients() {
+        return patientService.findAll();
     }
 }
