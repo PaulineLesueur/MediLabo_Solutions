@@ -22,6 +22,6 @@ public class Patient {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
     private String gender;
-    private String adress;
+    private String address;
     private String phone;
 }
