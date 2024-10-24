@@ -52,7 +52,7 @@ export class PatientFormComponent implements OnInit {
       };
 
       this.patientService.updatePatient(updatedPatient).subscribe(() => {
-        this.router.navigate(['/patient/${updatedPatient.id}']); 
+        this.router.navigate([`/patient/${updatedPatient.id}`]); 
       });
     }
   }
