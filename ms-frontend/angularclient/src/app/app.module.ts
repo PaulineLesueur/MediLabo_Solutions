@@ -7,17 +7,21 @@ import { AppComponent } from './app.component';
 import { PatientsListComponent } from './patients-list/patients-list.component';
 import { PatientService } from './services/patient.service';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
+import { PatientFormComponent } from './patient-form/patient-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientsListComponent,
-    PatientDetailComponent
+    PatientDetailComponent,
+    PatientFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [PatientService],
   bootstrap: [AppComponent]

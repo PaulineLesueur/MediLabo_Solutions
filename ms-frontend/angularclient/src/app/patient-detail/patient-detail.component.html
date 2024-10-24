@@ -1,9 +1,13 @@
 <section>
     <nav>
-        <a [routerLink]="['/patients-list']">Go back</a>
+        <a [routerLink]="['/patients-list']">Go back to patient list</a>
     </nav>
 
     <h3>Patient detail - {{ patient?.lastName }} {{ patient?.firstName }}</h3>
+    <div class="container">
+        <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'update']">Update patient detail</button>
+    </div>
+
     <ul>
         <li>
             <span>Lastname</span>

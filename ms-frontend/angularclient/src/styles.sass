@@ -31,7 +31,7 @@ h2
     line-height: 0.5em
 
 h3
-    padding-bottom: 40px
+    padding-bottom: 20px
     font-size: 1.6em
     font-weight: 600
     text-align: center
@@ -44,6 +44,21 @@ a
 
 a:hover
     color: $color-accent
+
+button
+    cursor: pointer
+    min-width: 120px
+    min-height: 30px
+    padding: 5px 10px
+    background: $color-button
+    border: none
+    border-radius: 3px
+    font-family: $font-main
+    font-weight: 500
+    color: $color-text
+
+    &:hover
+        background: $color-border
 
 header
     a
@@ -83,7 +98,7 @@ section
             padding: 0 10px
 
             &:nth-child(odd)
-                background: #f3f3f3
+                background: $color-button
 
 
 footer

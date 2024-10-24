@@ -22,4 +22,8 @@ export class PatientService {
    public findById(id: number): Observable<Patient> {
     return this.http.get<Patient>(`${this.patientDetail}/${id}`)
    }
+
+   public updatePatient(patient: Patient): Observable<Patient> {
+    return this.http.put<Patient>(`${this.patientDetail}/${patient.id}`, patient);
+   }
 }
