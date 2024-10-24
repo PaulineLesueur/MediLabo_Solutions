@@ -24,4 +24,7 @@ public class PatientController {
 
     @PutMapping("/patient/{id}/update")
     public Patient updatePatient(@PathVariable Integer id, @RequestBody Patient updatedPatient) { return patientService.updatePatient(id, updatedPatient); }
+
+    @PostMapping("/patients/create")
+    public Patient createPatient(@RequestBody Patient newPatient) throws Exception { return patientService.createPatient(newPatient); }
 }

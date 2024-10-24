@@ -19,6 +19,14 @@ public class PatientService {
 
     public Optional<Patient> findById(Integer id) { return patientRepository.findById(id); }
 
+    public Patient createPatient(Patient newPatient) throws Exception {
+        if(patientRepository.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()).isPresent()) {
+            throw new Exception();
+        }
+
+        return patientRepository.save(newPatient);
+    }
+
     public Patient updatePatient(Integer id, Patient updatedPatient) {
         Optional<Patient> patient = findById(id);
 

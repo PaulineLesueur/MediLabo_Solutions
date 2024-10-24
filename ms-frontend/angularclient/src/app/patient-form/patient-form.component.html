@@ -1,11 +1,19 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="patientForm">
     <section>
         <nav>
-            <li><a [routerLink]="['/patients-list']">Patients list</a></li>
-            <li><a *ngIf="patient" [routerLink]="['/patient', patient.id]">{{ patient.lastName }} {{ patient.firstName }}</a></li>
-            <li><span>Update patient detail</span></li>
+            <li>
+                <a [routerLink]="['/patients-list']">Patients list</a>
+            </li>
+            <li *ngIf="patient">
+                <a [routerLink]="['/patient', patient.id]">{{ patient.lastName }} {{ patient.firstName }}</a>
+            </li>
+            <li>
+                <span *ngIf="patient">Update patient detail</span>
+                <span *ngIf="!patient">Add new patient</span>
+            </li>
         </nav>
         <h3 *ngIf="patient">Update detail - {{ patient.lastName }} {{ patient.firstName }}</h3>
+        <h3 *ngIf="!patient">Add new patient</h3>
 
         <div class="container">
             <div class="field">

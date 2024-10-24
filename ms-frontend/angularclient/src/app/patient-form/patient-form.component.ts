@@ -24,7 +24,6 @@ export class PatientFormComponent implements OnInit {
     let id: string | null = this.route.snapshot.paramMap.get('id'); 
     if (id) {
       this.patientService.findById(+id).subscribe((data: Patient) => {
-        console.log(data);
         this.patient = data;
         this.initializeForm(); 
       });
@@ -46,14 +45,22 @@ export class PatientFormComponent implements OnInit {
 
   onSubmit() {
     if (this.patientForm.valid) {
-      const updatedPatient: Patient = {
-        ...this.patient, 
-        ...this.patientForm.value 
-      };
+      const patientData: Patient = this.patientForm.value;
 
-      this.patientService.updatePatient(updatedPatient).subscribe(() => {
-        this.router.navigate([`/patient/${updatedPatient.id}`]); 
-      });
+      if(this.patient) {
+        const updatedPatient: Patient = {
+          ...this.patient, 
+          ...patientData
+        };
+  
+        this.patientService.updatePatient(updatedPatient).subscribe(() => {
+          this.router.navigate([`/patient/${updatedPatient.id}`]); 
+        });
+      } else {
+        this.patientService.createPatient(patientData).subscribe((newPatient: Patient) => {
+          this.router.navigate([`/patient/${newPatient.id}`]);
+        });
+      }
     }
   }
 }
