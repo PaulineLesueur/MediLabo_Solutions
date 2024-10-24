@@ -9,7 +9,7 @@
             <span>Phone</span>
         </li>
         <li *ngFor="let patient of patients">
-            <span><a [routerLink]="['/patient']">{{ patient.lastName }} {{ patient.firstName}}</a></span>
+            <span><a [routerLink]="['/patient', patient.id]">{{ patient.lastName }} {{ patient.firstName}}</a></span>
             <span>{{ patient.birthdate }}</span>
             <span>{{ patient.gender }}</span>
             <span>{{ patient.address }}</span>

@@ -3,31 +3,31 @@
         <a [routerLink]="['/patients-list']">Go back</a>
     </nav>
 
-    <h3>Patient detail - Name</h3>
+    <h3>Patient detail - {{ patient?.lastName }} {{ patient?.firstName }}</h3>
     <ul>
         <li>
             <span>Lastname</span>
-            <span>Test</span>
+            <span>{{ patient?.lastName }}</span>
         </li>
         <li>
             <span>Firstname</span>
-            <span>TestNone</span>
+            <span>{{ patient?.firstName }}</span>
         </li>
         <li>
             <span>Birthdate</span>
-            <span>1966-12-30</span>
+            <span>{{ patient?.birthdate }}</span>
         </li>
         <li>
             <span>Gender</span>
-            <span>F</span>
+            <span>{{ patient?.gender }}</span>
         </li>
         <li>
             <span>Address</span>
-            <span>1 Brookside St</span>
+            <span>{{ patient?.address }}</span>
         </li>
         <li>
             <span>Phone</span>
-            <span>100-222-3333</span>
+            <span>{{ patient?.phone }}</span>
         </li>
     </ul>
 </section>
