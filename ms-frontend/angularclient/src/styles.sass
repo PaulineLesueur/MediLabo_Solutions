@@ -39,6 +39,12 @@ h3
     letter-spacing: -0.7px
     color: $color-text
 
+a
+    color: $color-text
+
+a:hover
+    color: $color-accent
+
 header
     position: fixed
     top: 0
@@ -61,6 +67,22 @@ main
 section
     width: 100%
     padding: 20px
+
+    ul
+        width: 75%
+        margin: auto
+
+        li
+            list-style-type: none
+            display: grid
+            align-items: center
+            gap: 5px
+            height: 40px
+            padding: 0 10px
+
+            &:nth-child(odd)
+                background: #f3f3f3
+
 
 footer
     position: fixed

@@ -1,17 +1,15 @@
 <section>
     <h3>Patients list</h3>
-    <ul class="table">
+    <ul>
         <li>
-            <span>Lastname</span>
-            <span>Firstname</span>
+            <span>Fullname</span>
             <span>Birthdate</span>
             <span>Gender</span>
             <span>Address</span>
             <span>Phone</span>
         </li>
         <li *ngFor="let patient of patients">
-            <span>{{ patient.lastName }}</span>
-            <span>{{ patient.firstName }}</span>
+            <span><a [routerLink]="['/patient']">{{ patient.lastName }} {{ patient.firstName}}</a></span>
             <span>{{ patient.birthdate }}</span>
             <span>{{ patient.gender }}</span>
             <span>{{ patient.address }}</span>

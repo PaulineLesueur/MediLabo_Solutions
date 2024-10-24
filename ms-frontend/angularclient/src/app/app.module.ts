@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PatientsListComponent } from './patients-list/patients-list.component';
 import { PatientService } from './services/patient.service';
+import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PatientsListComponent
+    PatientsListComponent,
+    PatientDetailComponent
   ],
   imports: [
     BrowserModule,
