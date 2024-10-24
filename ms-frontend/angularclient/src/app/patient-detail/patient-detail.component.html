@@ -1,6 +1,7 @@
 <section>
     <nav>
-        <a [routerLink]="['/patients-list']">Go back to patient list</a>
+        <li><a [routerLink]="['/patients-list']">Patients list</a></li>
+        <li><span>{{ patient?.lastName }} {{ patient?.firstName }}</span></li>
     </nav>
 
     <h3>Patient detail - {{ patient?.lastName }} {{ patient?.firstName }}</h3>
