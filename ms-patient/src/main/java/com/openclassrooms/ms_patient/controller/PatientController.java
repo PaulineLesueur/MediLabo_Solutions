@@ -3,6 +3,7 @@ package com.openclassrooms.ms_patient.controller;
 import com.openclassrooms.ms_patient.model.Patient;
 import com.openclassrooms.ms_patient.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping("/patients")
-    public Iterable<Patient> getAllPatients() {
-        return patientService.findAll();
+    public Page<Patient> getAllPatients(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return patientService.findAll(page, size);
     }
 
     @GetMapping("/patient/{id}")

@@ -3,6 +3,9 @@ package com.openclassrooms.ms_patient.service;
 import com.openclassrooms.ms_patient.model.Patient;
 import com.openclassrooms.ms_patient.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,8 +16,9 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public Iterable<Patient> findAll() {
-        return patientRepository.findAll();
+    public Page<Patient> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return patientRepository.findAll(pageable);
     }
 
     public Optional<Patient> findById(Integer id) { return patientRepository.findById(id); }
