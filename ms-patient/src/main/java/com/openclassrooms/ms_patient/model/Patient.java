@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -32,7 +32,7 @@ public class Patient {
 
     @NotNull(message = "Birthdate is required")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @NotBlank(message = "Gender is required")
     private String gender;
