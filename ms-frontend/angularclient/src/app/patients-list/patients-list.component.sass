@@ -21,3 +21,24 @@ ul
         &:first-child
             background: $color-border !important
             font-weight: 500
+
+.pagination
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 5px
+    margin-top: 20px
+
+    button
+        min-width: 40px 
+        min-height: 40px
+        background: $color-bg-main
+        border: 1px solid $color-border
+        font-weight: 400
+
+        &:first-child, &:last-child
+            font-size: 1.2em
+
+        &.active
+            background: $color-border
+            

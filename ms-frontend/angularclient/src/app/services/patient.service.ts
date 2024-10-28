@@ -15,8 +15,8 @@ export class PatientService {
     this.patientDetail = 'http://localhost:8081/patient'
    }
 
-   public findAll(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(this.patientsApi);
+   public findAll(page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${this.patientsApi}?page=${page}&size=${size}`);
    }
 
    public findById(id: number): Observable<Patient> {

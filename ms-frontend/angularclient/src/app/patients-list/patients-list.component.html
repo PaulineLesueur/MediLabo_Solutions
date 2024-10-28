@@ -23,4 +23,18 @@
             <span>{{ patient.phone }}</span>
         </li>
     </ul>
+
+    <div class="pagination" *ngIf="getTotalPages() > 1"> 
+        <button  (click)="goToPage(currentPage - 1)">
+            «
+        </button>
+        
+        <button *ngFor="let page of pagesArray; let i = index" (click)="goToPage(i)" [class.active]="i === currentPage">
+            {{ i + 1 }}
+        </button>
+    
+        <button (click)="goToPage(currentPage + 1)" >
+            »
+        </button>
+    </div>
 </section>
