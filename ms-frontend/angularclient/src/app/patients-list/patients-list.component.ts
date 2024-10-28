@@ -10,7 +10,7 @@ import { Patient } from '../models/patient';
 export class PatientsListComponent implements OnInit {
   patients: Patient[] = [];
   currentPage: number = 0;
-  pageSize: number= 5;
+  pageSize: number= 10;
   totalPatients: number = 0;
   pagesArray: number[] = [];
 

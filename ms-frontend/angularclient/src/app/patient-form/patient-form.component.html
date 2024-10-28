@@ -17,24 +17,73 @@
 
         <div class="container">
             <div class="field">
-                <label for="lastname">Lastname :</label>
-                <input id="lastname" formControlName="lastName" placeholder="Lastname">
+                <label for="lastname">
+                    Lastname :
+                    <div *ngIf="patientForm.get('lastName')?.invalid && patientForm.get('lastName')?.touched">
+                        <small *ngIf="patientForm.get('lastName')?.errors?.['required']">
+                            Please enter the patient's lastname.
+                        </small>
+                    </div>
+                </label>
+                <input
+                    id="lastname"
+                    formControlName="lastName"
+                    placeholder="Lastname"
+                    [ngClass]="{'error': patientForm.get('lastName')?.invalid && patientForm.get('lastName')?.touched}"
+                    required
+                >
             </div>
             <div class="field">
-                <label for="firstname">Firstname :</label>
-                <input id="firstname" formControlName="firstName" placeholder="Firstname">
+                <label for="firstname">
+                    Firstname :
+                    <div *ngIf="patientForm.get('firstName')?.invalid && patientForm.get('firstName')?.touched">
+                        <small *ngIf="patientForm.get('firstName')?.errors?.['required']">
+                            Please enter the patient's firstname.
+                        </small>
+                    </div>
+                </label>
+                <input 
+                    id="firstname" 
+                    formControlName="firstName" 
+                    placeholder="Firstname"
+                    [ngClass]="{'error': patientForm.get('firstName')?.invalid && patientForm.get('firstName')?.touched}"
+                    required
+                >
             </div>
             <div class="field">
-                <label for="birthdate">Birthdate :</label>
-                <input id="birthdate" formControlName="birthdate" type="date">
+                <label for="birthdate">
+                    Birthdate :
+                    <div *ngIf="patientForm.get('birthdate')?.invalid && patientForm.get('birthdate')?.touched">
+                        <small *ngIf="patientForm.get('birthdate')?.errors?.['required']">
+                            Please enter the patient's birthdate.
+                        </small>
+                    </div>
+                </label>
+                <input 
+                    id="birthdate" 
+                    formControlName="birthdate" 
+                    type="date"
+                    [ngClass]="{'error': patientForm.get('birthdate')?.invalid && patientForm.get('birthdate')?.touched}"
+                    required
+                >
             </div>
             <div class="field">
-                <label for="gender">Gender :</label>
-                <select id="gender" formControlName="gender">
+                <label for="gender">
+                    Gender :
+                    <div *ngIf="patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched">
+                        <small *ngIf="patientForm.get('gender')?.errors?.['required']">
+                            Please enter the patient's gender.
+                        </small>
+                    </div>
+                </label>
+                <select 
+                    id="gender" 
+                    formControlName="gender"
+                    [ngClass]="{'error': patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched}"
+                >
                     <option value="" disabled selected>Select the gender</option>
                     <option value="M">M</option>
                     <option value="F">F</option>
-                    <option value="O">Other</option>
                 </select>
             </div>
             <div class="field">

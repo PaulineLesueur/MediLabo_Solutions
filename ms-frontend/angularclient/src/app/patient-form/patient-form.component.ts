@@ -44,23 +44,27 @@ export class PatientFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.patientForm.valid) {
-      const patientData: Patient = this.patientForm.value;
-
-      if(this.patient) {
-        const updatedPatient: Patient = {
-          ...this.patient, 
-          ...patientData
-        };
+    if (this.patientForm.invalid) {
+      this.patientForm.markAllAsTouched();
+      return;
+    }
   
-        this.patientService.updatePatient(updatedPatient).subscribe(() => {
-          this.router.navigate([`/patient/${updatedPatient.id}`]); 
-        });
-      } else {
-        this.patientService.createPatient(patientData).subscribe((newPatient: Patient) => {
-          this.router.navigate([`/patient/${newPatient.id}`]);
-        });
-      }
+    const patientData: Patient = this.patientForm.value;
+  
+    if (this.patient) {
+      const updatedPatient: Patient = {
+        ...this.patient,
+        ...patientData
+      };
+  
+      this.patientService.updatePatient(updatedPatient).subscribe(() => {
+        this.router.navigate([`/patient/${updatedPatient.id}`]);
+      });
+    } else {
+      // Cas de la création d'un nouveau patient
+      this.patientService.createPatient(patientData).subscribe((newPatient: Patient) => {
+        this.router.navigate([`/patient/${newPatient.id}`]);
+      });
     }
   }
 }
