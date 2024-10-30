@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { PatientsListComponent } from './patients-list/patients-list.component';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import { PatientFormComponent } from './patient-form/patient-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
+  { path: 'login', component: LoginFormComponent },
   { path: 'patients-list', component: PatientsListComponent },
   { path: 'patient/:id', component: PatientDetailComponent},
   { path: 'patient/:id/update', component: PatientFormComponent},

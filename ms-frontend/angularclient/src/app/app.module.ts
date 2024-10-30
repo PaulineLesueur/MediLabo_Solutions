@@ -9,13 +9,15 @@ import { PatientService } from './services/patient.service';
 import { PatientDetailComponent } from './patient-detail/patient-detail.component';
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientsListComponent,
     PatientDetailComponent,
-    PatientFormComponent
+    PatientFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
