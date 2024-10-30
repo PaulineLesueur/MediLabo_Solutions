@@ -10,6 +10,7 @@ import { PatientDetailComponent } from './patient-detail/patient-detail.componen
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoteFormComponent } from './note-form/note-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { NoteFormComponent } from './note-form/note-form.component';
     PatientDetailComponent,
     PatientFormComponent,
     NoteFormComponent
+    PatientFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
