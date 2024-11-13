@@ -9,25 +9,25 @@ import { Patient } from '../models/patient';
 export class PatientService {
   private patientsApi: string;
   private patientDetail: string;
+  private api: string;
 
   constructor(private http: HttpClient) {
-    this.patientsApi = 'http://localhost:8081/patients';
-    this.patientDetail = 'http://localhost:8081/patient'
+    this.api = 'http://localhost:8080';
    }
 
    public findAll(page: number, size: number): Observable<any> {
-    return this.http.get<any>(`${this.patientsApi}?page=${page}&size=${size}`);
+    return this.http.get<any>(`${this.api}/patients?page=${page}&size=${size}`);
    }
 
    public findById(id: number): Observable<Patient> {
-    return this.http.get<Patient>(`${this.patientDetail}/${id}`)
+    return this.http.get<Patient>(`${this.api}/patient/${id}`)
    }
 
    public updatePatient(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(`${this.patientDetail}/${patient.id}/update`, patient);
+    return this.http.put<Patient>(`${this.api}/patient/${patient.id}/update`, patient);
    }
 
    public createPatient(newPatient: Patient) {
-    return this.http.post<Patient>(`${this.patientsApi}/create`, newPatient);
+    return this.http.post<Patient>(`${this.api}/patients/create`, newPatient);
    }
 }

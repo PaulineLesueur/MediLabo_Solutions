@@ -7,7 +7,7 @@ import { NoteFormComponent } from './note-form/note-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent },
+  //{ path: 'login', component: LoginFormComponent },
   { path: 'patients-list', component: PatientsListComponent },
   { path: 'patient/:id', component: PatientDetailComponent},
   { path: 'patient/:id/update', component: PatientFormComponent},
