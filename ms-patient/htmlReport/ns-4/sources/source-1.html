@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PatientService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.openclassrooms.ms_patient.service</a>
+</div>
+
+<h1>Coverage Summary for Class: PatientService (com.openclassrooms.ms_patient.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PatientService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (2/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,7%
+  </span>
+  <span class="absValue">
+    (2/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.openclassrooms.ms_patient.service;
+&nbsp;
+&nbsp;import com.openclassrooms.ms_patient.exceptions.DuplicatePatientException;
+&nbsp;import com.openclassrooms.ms_patient.exceptions.ResourceNotFoundException;
+&nbsp;import com.openclassrooms.ms_patient.model.Patient;
+&nbsp;import com.openclassrooms.ms_patient.repository.PatientRepository;
+&nbsp;import org.apache.logging.log4j.LogManager;
+&nbsp;import org.apache.logging.log4j.Logger;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.PageRequest;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.function.Consumer;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class PatientService {</b>
+&nbsp;
+<b class="fc">&nbsp;    private static final Logger logger = LogManager.getLogger(PatientService.class);</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    private PatientRepository patientRepository;
+&nbsp;
+&nbsp;    public Page&lt;Patient&gt; findAll(int page, int size) {
+<b class="nc">&nbsp;        logger.info(&quot;Fetching patients - page: {}, size: {}&quot;, page, size);</b>
+<b class="nc">&nbsp;        Pageable pageable = PageRequest.of(page, size);</b>
+<b class="nc">&nbsp;        return patientRepository.findAll(pageable);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Patient findById(Integer id) {
+<b class="nc">&nbsp;        logger.info(&quot;Finding patient with ID: {}&quot;, id);</b>
+<b class="nc">&nbsp;        return patientRepository.findById(id)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; {</b>
+<b class="nc">&nbsp;                    logger.error(&quot;Patient with ID {} not found&quot;, id);</b>
+<b class="nc">&nbsp;                    return new ResourceNotFoundException(&quot;Patient with ID &quot; + id + &quot; not found&quot;);</b>
+&nbsp;                });
+&nbsp;    }
+&nbsp;
+&nbsp;    public Patient createPatient(Patient newPatient) {
+<b class="nc">&nbsp;        logger.info(&quot;Creating new patient: {}&quot;, newPatient);</b>
+<b class="nc">&nbsp;        if(patientRepository.findByFirstNameAndLastName(newPatient.getFirstName(), newPatient.getLastName()).isPresent()) {</b>
+<b class="nc">&nbsp;            logger.warn(&quot;Duplicate patient attempt with name: {} {}&quot;, newPatient.getFirstName(), newPatient.getLastName());</b>
+<b class="nc">&nbsp;            throw new DuplicatePatientException(&quot;There already is a patient with this first and last name&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Patient savedPatient = patientRepository.save(newPatient);</b>
+<b class="nc">&nbsp;        logger.info(&quot;Sucessfully created patient with name {} {}&quot;, savedPatient.getFirstName(), savedPatient.getLastName());</b>
+<b class="nc">&nbsp;        return savedPatient;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Patient updatePatient(Integer id, Patient updatedPatient) {
+<b class="nc">&nbsp;        Patient patientToUpdate = findById(id);</b>
+<b class="nc">&nbsp;        logger.info(&quot;Updating patient with ID: {}&quot;, id);</b>
+&nbsp;
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getLastName(), patientToUpdate::setLastName);</b>
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getFirstName(), patientToUpdate::setFirstName);</b>
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getBirthdate(), patientToUpdate::setBirthdate);</b>
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getGender(), patientToUpdate::setGender);</b>
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getAddress(), patientToUpdate::setAddress);</b>
+<b class="nc">&nbsp;        updateIfNotNull(updatedPatient.getPhone(), patientToUpdate::setPhone);</b>
+&nbsp;
+<b class="nc">&nbsp;        Patient updatedPatientEntity = patientRepository.save(patientToUpdate);</b>
+<b class="nc">&nbsp;        logger.info(&quot;Successfully updated patient with ID: {}&quot;, updatedPatientEntity.getId());</b>
+<b class="nc">&nbsp;        return updatedPatientEntity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private &lt;T&gt; void updateIfNotNull(T value, Consumer&lt;T&gt; updater) {
+<b class="nc">&nbsp;        if (value != null) {</b>
+<b class="nc">&nbsp;            updater.accept(value);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-04 15:56</div>
+</div>
+</body>
+</html>

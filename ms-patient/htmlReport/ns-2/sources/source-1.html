@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PatientController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.openclassrooms.ms_patient.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: PatientController (com.openclassrooms.ms_patient.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PatientController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (2/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (7/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.openclassrooms.ms_patient.controller;
+&nbsp;
+&nbsp;import com.openclassrooms.ms_patient.model.Patient;
+&nbsp;import com.openclassrooms.ms_patient.service.PatientService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+<b class="fc">&nbsp;public class PatientController {</b>
+&nbsp;    @Autowired
+&nbsp;    private PatientService patientService;
+&nbsp;
+&nbsp;    @GetMapping(&quot;/patients&quot;)
+&nbsp;    public ResponseEntity&lt;Page&lt;Patient&gt;&gt; getAllPatients(@RequestParam(defaultValue = &quot;0&quot;) int page, @RequestParam(defaultValue = &quot;10&quot;) int size) {
+<b class="fc">&nbsp;        Page&lt;Patient&gt; patientsList = patientService.findAll(page, size);</b>
+&nbsp;
+<b class="fc">&nbsp;        if(patientsList.isEmpty()) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.noContent().build();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return ResponseEntity.ok()</b>
+<b class="fc">&nbsp;                .header(&quot;X-Total-Count&quot;, String.valueOf(patientsList.getTotalElements()))</b>
+<b class="fc">&nbsp;                .header(&quot;X-Total-Pages&quot;, String.valueOf(patientsList.getTotalPages()))</b>
+<b class="fc">&nbsp;                .body(patientsList);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;/patient/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;Patient&gt; getPatientById(@PathVariable Integer id) {
+<b class="nc">&nbsp;        Patient patient = patientService.findById(id);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(patient);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PutMapping(&quot;/patient/{id}/update&quot;)
+&nbsp;    public ResponseEntity&lt;Patient&gt; updatePatient(@PathVariable Integer id, @RequestBody Patient updatedPatient) {
+<b class="nc">&nbsp;        Patient patient = patientService.updatePatient(id, updatedPatient);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(patient);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;/patients/create&quot;)
+&nbsp;    public ResponseEntity&lt;Patient&gt; createPatient(@RequestBody Patient newPatient) {
+<b class="nc">&nbsp;        Patient patient = patientService.createPatient(newPatient);</b>
+<b class="nc">&nbsp;        return ResponseEntity.status(HttpStatus.CREATED).body(patient);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-04 15:56</div>
+</div>
+</body>
+</html>
