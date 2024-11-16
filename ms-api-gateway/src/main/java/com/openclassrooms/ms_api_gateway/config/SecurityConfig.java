@@ -4,7 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -29,18 +33,29 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(source -> corsConfig))
                 .authorizeExchange(auth -> auth
                         .pathMatchers("/public/**").permitAll()
-                        .pathMatchers("/**").permitAll()
+                        .pathMatchers("/patients", "/patient/{id}").hasAnyRole("ORGANIZER", "PRACTITIONER")
+                        .pathMatchers("/patient/{id}/update", "/patients/create").hasRole("ORGANIZER")
                         .anyExchange().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutUrl("/login?logout")
                 );
 
         return http.build();
+    }
+
+    @Bean
+    public UserDetailsService users() {
+        UserDetails organizer = User.builder()
+                .username("Organizer")
+                .password(passwordEncoder().encode("demo"))
+                .roles("ORGANIZER")
+                .build();
+
+        UserDetails practitioner = User.builder()
+                .username("Practitioner")
+                .password(passwordEncoder().encode("demo"))
+                .roles("PRACTITIONER")
+                .build();
+
+        return new InMemoryUserDetailsManager(organizer, practitioner);
     }
 
     @Bean
