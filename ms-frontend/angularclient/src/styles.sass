@@ -62,6 +62,12 @@ button
         background: $color-button
         transition: .4s
 
+    &.logout
+        background: $color-button
+
+        &:hover
+            background: $color-border
+
 header
     a
         position: fixed
@@ -84,8 +90,10 @@ main
     border: 1px solid $color-border
 
 nav 
+    position: relative
     display: flex
     align-items: flex-end
+    width: 100%
     margin-bottom: 25px
 
     li
@@ -104,7 +112,12 @@ nav
 
         span
             font-weight: 600
-        
+
+    button
+        position: absolute
+        top: 50%
+        right: 0
+        transform: translateY(-50%)
 
 section
     width: 100%
