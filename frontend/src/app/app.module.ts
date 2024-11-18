@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoteFormComponent } from './note-form/note-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { LogoutComponent } from './logout/logout.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LogoutComponent } from './logout/logout.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [PatientService],
   bootstrap: [AppComponent]

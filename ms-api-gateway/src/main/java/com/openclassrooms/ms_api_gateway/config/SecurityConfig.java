@@ -1,14 +1,14 @@
 package com.openclassrooms.ms_api_gateway.config;
 
+import com.openclassrooms.ms_api_gateway.auth.JwtAuthenticationFilter;
+import com.openclassrooms.ms_api_gateway.auth.JwtAuthenticationProvider;
+import com.openclassrooms.ms_api_gateway.auth.JwtTokenUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -18,8 +18,14 @@ import java.util.List;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
+    private final JwtTokenUtil jwtTokenUtil;
+
+    public SecurityConfig(JwtTokenUtil jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
+
     @Bean
-    public SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
+    public SecurityWebFilterChain filterChain(ServerHttpSecurity http, JwtAuthenticationProvider jwtAuthenticationProvider) throws Exception {
 
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.setAllowCredentials(true);
@@ -29,37 +35,17 @@ public class SecurityConfig {
         corsConfig.setAllowedHeaders(List.of("*"));
 
         http
+                .cors(cors -> cors.configurationSource(request -> corsConfig))
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(source -> corsConfig))
                 .authorizeExchange(auth -> auth
-                        .pathMatchers("/public/**").permitAll()
-                        .pathMatchers("/patients", "/patient/{id}").hasAnyRole("ORGANIZER", "PRACTITIONER")
+                        .pathMatchers("/public/**", "/auth/**").permitAll()
+                        .pathMatchers("/patients", "/patient/{id}").hasAnyRole("ROLE_ORGANIZER", "PRACTITIONER")
                         .pathMatchers("/patient/{id}/update", "/patients/create").hasRole("ORGANIZER")
                         .anyExchange().authenticated()
-                );
+                )
+                .addFilterBefore(new JwtAuthenticationFilter(jwtAuthenticationProvider), SecurityWebFiltersOrder.AUTHENTICATION);
 
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService users() {
-        UserDetails organizer = User.builder()
-                .username("Organizer")
-                .password(passwordEncoder().encode("demo"))
-                .roles("ORGANIZER")
-                .build();
-
-        UserDetails practitioner = User.builder()
-                .username("Practitioner")
-                .password(passwordEncoder().encode("demo"))
-                .roles("PRACTITIONER")
-                .build();
-
-        return new InMemoryUserDetailsManager(organizer, practitioner);
-    }
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
