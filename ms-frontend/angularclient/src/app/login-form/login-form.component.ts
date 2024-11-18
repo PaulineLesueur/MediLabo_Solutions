@@ -8,12 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.sass']
 })
 export class LoginFormComponent implements OnInit {
+  username: string = '';
+  password: string = '';
+
   constructor(private auth: AuthService, private router: Router) {   }
 
   ngOnInit(): void {  }
 
   onLogin() {
-    this.auth.login();
-    this.router.navigateByUrl('/patients-list');
+    this.auth.login(this.username, this.password).subscribe(
+      response => {
+        const token = response.token;
+        this.auth.saveToken(token);
+      },
+      error => {
+        console.error('Failed to connect test', error);
+      }
+    );
   }
 }
