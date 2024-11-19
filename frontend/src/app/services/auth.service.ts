@@ -29,7 +29,9 @@ export class AuthService {
   }
 
   logout(): void {
+    console.log('Déconnexion : suppression du token');
     this.token = null;
     localStorage.removeItem('auth_token');
+    console.log('Token après suppression (localStorage) :', localStorage.getItem('auth_token'));
   }
 }
