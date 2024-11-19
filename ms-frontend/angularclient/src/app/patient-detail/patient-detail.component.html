@@ -9,7 +9,7 @@
         <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'update']">Update patient detail</button>
     </div>
 
-    <ul>
+    <ul class="detail">
         <li>
             <span>Lastname</span>
             <span>{{ patient?.lastName }}</span>
@@ -33,6 +33,20 @@
         <li>
             <span>Phone</span>
             <span>{{ patient?.phone }}</span>
+        </li>
+    </ul>
+
+    <div class="container notes">
+        <h4>Notes :</h4>
+        <button>Add note</button>
+    </div>
+
+    <ul class="notes">
+        <li>
+            Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement
+        </li>
+        <li>
+            Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale
         </li>
     </ul>
 </section>
