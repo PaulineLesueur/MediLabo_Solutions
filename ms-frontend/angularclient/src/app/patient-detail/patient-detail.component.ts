@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from '../models/patient';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from '../services/patient.service';
+import { Note } from '../models/note';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -9,9 +11,10 @@ import { PatientService } from '../services/patient.service';
   styleUrls: ['./patient-detail.component.sass']
 })
 export class PatientDetailComponent implements OnInit {
-  patient: Patient | undefined
+  patient: Patient | undefined;
+  notes: Note[] = [];
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService) { 
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private noteService: NoteService) { 
   }
 
   ngOnInit(): void {
@@ -20,6 +23,10 @@ export class PatientDetailComponent implements OnInit {
       this.patientService.findById(+id).subscribe((data: Patient) => {
         this.patient = data;
       });
+
+      this.noteService.findNotesByPatientId(+id).subscribe((data: Note[]) => {
+        this.notes = data;
+      })
     }
   }
 }

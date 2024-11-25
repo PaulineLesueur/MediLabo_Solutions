@@ -1,0 +1,46 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="noteForm">
+    <section>
+        <nav>
+            <li><a [routerLink]="['/patients-list']">Patients list</a></li>
+            <li><a [routerLink]="['/patient', patient?.id]">{{ patient?.lastName }} {{ patient?.firstName }}</a></li>
+            <li><span>Add note</span></li>
+        </nav>
+        <h3>Add note for patient {{ patient?.lastName }} {{ patient?.firstName }}</h3>
+
+        <div class="container">
+            <div class="field patId">
+                <label for="id">Patient id :</label>
+                <input 
+                    id="patId"
+                    formControlName="patId"
+                    placeholder="patId"
+                    [attr.disabled]="true" />
+            </div>
+            <div class="field">
+                <label for="patient">Patient name :</label>
+                <input 
+                    id="patient"
+                    formControlName="patient" 
+                    placeholder="patient"
+                    [attr.disabled]="true" />
+            </div>
+            <div class="field">
+                <label for="note">Note :
+                    <div *ngIf="noteForm.get('note')?.invalid && noteForm.get('note')?.touched">
+                        <small *ngIf="noteForm.get('note')?.errors?.['required']">
+                            Note is empty. Please, enter a new note or go back a page
+                        </small>
+                    </div>
+                </label>
+                <textarea 
+                    id="note"
+                    formControlName="note"
+                    placeholder="Note..."></textarea>
+            </div>
+        </div>
+
+        <div class="submit">
+            <button type="submit">Submit note</button>
+        </div>
+    </section>
+</form>

@@ -38,15 +38,15 @@
 
     <div class="container notes">
         <h4>Notes :</h4>
-        <button>Add note</button>
+        <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'add-note']">Add note</button>
     </div>
 
-    <ul class="notes">
-        <li>
-            Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement
-        </li>
-        <li>
-            Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale
+    <ul class="notes" *ngIf="notes.length > 0; else noNotes">
+        <li *ngFor="let note of notes">
+            <span>{{ note. note }}</span>
         </li>
     </ul>
+    <ng-template #noNotes>
+        <p class="notes">No note found for this patient...</p>
+    </ng-template>
 </section>

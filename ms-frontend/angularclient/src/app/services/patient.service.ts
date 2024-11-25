@@ -8,7 +8,7 @@ import { Patient } from '../models/patient';
 })
 export class PatientService {
   private patientsApi: string;
-  private patientDetail: string
+  private patientDetail: string;
 
   constructor(private http: HttpClient) {
     this.patientsApi = 'http://localhost:8081/patients';
