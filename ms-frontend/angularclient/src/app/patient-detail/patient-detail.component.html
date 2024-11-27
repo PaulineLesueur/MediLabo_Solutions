@@ -6,6 +6,20 @@
 
     <h3>Patient detail - {{ patient?.lastName }} {{ patient?.firstName }}</h3>
     <div class="container">
+        <div class="diabet-rapport">
+            <div class="tag none">
+                Diabetes risk : None
+            </div>
+            <div class="tag borderline">
+                Diabetes risk : Borderline
+            </div>
+            <div class="tag danger">
+                Diabetes risk : In danger
+            </div>
+            <div class="tag early">
+                Diabetes risk : Early Onset
+            </div>
+        </div>
         <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'update']">Update patient detail</button>
     </div>
 

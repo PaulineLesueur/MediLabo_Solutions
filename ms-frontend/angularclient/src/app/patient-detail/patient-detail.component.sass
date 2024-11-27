@@ -9,9 +9,37 @@ ul.detail
 
 .container
     display: flex
-    justify-content: flex-end
+    justify-content: space-between
     width: 80%
     margin: auto
+
+    .tag
+        min-width: 120px
+        min-height: 30px
+        height: fit-content
+        padding: 5px 10px
+        border-radius: 3px
+        font-weight: 500
+
+        &.none
+            background: #d1e7dd
+            border: 1px solid #a3cfbb
+            color: #0a3622
+        
+        &.borderline
+            background: #fff3cd
+            border: 1px solid #ffe69c
+            color: #664d03
+        
+        &.danger
+            background: #ffe4cd
+            border: 1px solid #ffc09c
+            color: #b15212
+
+        &.early
+            background: #f8d7da
+            border: 1px solid #f1aeb5
+            color: #58151c
     
     &.notes
         justify-content: space-between
