@@ -17,7 +17,6 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     public List<Note> findByPatientId(Integer patId) {
-        logger.info("Finding notes for patient with id : {}", patId);
         return noteRepository.findByPatId(patId);
     }
 
