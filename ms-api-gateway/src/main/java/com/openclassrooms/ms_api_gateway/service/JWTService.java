@@ -27,7 +27,7 @@ public class JWTService {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuer("self")
+                .issuer("MediLaboSolutions")
                 .issuedAt(now)
                 .expiresAt(now.plus(1, ChronoUnit.DAYS))
                 .subject(authentication.getName())

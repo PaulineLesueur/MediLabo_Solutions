@@ -35,9 +35,10 @@ public class SecurityConfig {
 
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), "HmacSHA256");
-        return NimbusReactiveJwtDecoder.withSecretKey(secretKey).build();
+        SecretKeySpec secretKey = new SecretKeySpec(this.jwtKey.getBytes(), MacAlgorithm.HS256.getName());
+        return NimbusReactiveJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
     }
+
 
 
     @Bean
