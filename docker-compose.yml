@@ -14,17 +14,17 @@ services:
       MYSQL_PASSWORD: rootroot
 
   mongodb:
-    images: mongo:5.0
+    image: mongo
     volumes:
       - mongodb_data:/var/lib/mongodb
-      - ./ms-notes/database/init-db.js:/docker-entrypoint-initdb.d
+      - ./ms-notes/database/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     restart: always
     ports:
       - '27018:27017'
     environment:
-      - MONGO_INITDB_DATABASE: MediLaboSolutions
-      - MONGO_INITDB_ROOT_USERNAME: root
-      - MONGO_INITDB_ROOT_PASSWORD: rootroot
+      MONGO_INITDB_DATABASE: MediLaboSolutions
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootroot
 
   ms-patient:
     image: ms-patient
@@ -44,13 +44,23 @@ services:
     depends_on:
       - mongodb
     restart: always
-    ports: '8082:8082'
+    ports: 
+      - '8082:8082'
     environment:
       MONGO_HOST: mongodb
       MONGO_PORT: '27017'
       MONGO_DATABASE: MediLaboSolutions
       MONGO_USERNAME: root
       MONGO_PASSWORD: rootroot
+
+  ms-diabetes-report:
+    image: ms-diabetes-report
+    depends_on:
+      - ms-patient
+      - ms-notes
+    restart: always
+    ports:
+      - '8083:8083'
 
 volumes: 
   mysql_data: { }
