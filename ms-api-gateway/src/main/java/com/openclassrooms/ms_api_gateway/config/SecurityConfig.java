@@ -74,7 +74,7 @@ public class SecurityConfig {
         corsConfig.setAllowCredentials(true);
 
         http
-                //.cors(cors -> cors.configurationSource(request -> corsConfig))
+                .cors(cors -> cors.configurationSource(request -> corsConfig))
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .authorizeExchange(auth -> auth
