@@ -16,7 +16,7 @@ import java.time.Period;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class DiabetesReportController {
 
     private final DiabetesRiskService riskService;

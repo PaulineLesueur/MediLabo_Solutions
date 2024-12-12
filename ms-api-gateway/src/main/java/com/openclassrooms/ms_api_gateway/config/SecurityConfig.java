@@ -81,6 +81,7 @@ public class SecurityConfig {
                         .pathMatchers("/public/**").permitAll()
                         .pathMatchers("/patients", "/patient/{id}").hasAnyRole("ORGANIZER", "PRACTITIONER")
                         .pathMatchers("/patient/{id}/update", "/patients/create").hasRole("ORGANIZER")
+                        .pathMatchers("/notes/{patId}", "/notes/create", "/diabetes-report/{patId}").hasRole("PRACTITIONER")
                         .anyExchange().authenticated()
                 )
                 .httpBasic();
