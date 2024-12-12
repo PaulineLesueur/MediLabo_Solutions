@@ -1,0 +1,44 @@
+@import ./src/assets/style/var
+
+h3
+    padding-bottom: 40px
+
+.container
+    display: flex
+    justify-content: flex-end
+    width: 80%
+    margin: auto
+    
+ul
+    margin-top: 20px
+    border-radius: 2px
+    border: 1px solid $color-border
+
+    li
+        grid-template-columns: 30% 20% 12% 19% 19%
+        text-align: center
+
+        &:first-child
+            background: $color-border !important
+            font-weight: 500
+
+.pagination
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 5px
+    margin-top: 20px
+
+    button
+        min-width: 40px 
+        min-height: 40px
+        background: $color-bg-main
+        border: 1px solid $color-border
+        font-weight: 400
+
+        &:first-child, &:last-child
+            font-size: 1.2em
+
+        &.active
+            background: $color-border
+            
