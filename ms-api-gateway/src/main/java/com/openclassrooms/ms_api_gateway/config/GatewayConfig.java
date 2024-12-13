@@ -14,11 +14,11 @@ public class GatewayConfig {
                 // Route pour ms-patient
                 .route("ms-patients", r -> r.path("/patient/**", "/patients/**")
                         .filters(f -> f.preserveHostHeader())
-                        .uri("http://localhost:8081"))
+                        .uri("http://ms-patient:8081"))
                 // Route pour ms-notes
                 .route("ms-notes", r -> r.path("/notes/**")
                         .filters(f -> f.preserveHostHeader())
-                        .uri("http://localhost:8082"))
+                        .uri("http://ms-notes:8082"))
                 .build();
     }
 }

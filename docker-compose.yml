@@ -12,6 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: rootroot
       MYSQL_USER: app_user
       MYSQL_PASSWORD: rootroot
+    networks:
+      - medilabosolution-app
 
   mongodb:
     image: mongo
@@ -23,11 +25,12 @@ services:
       - '27018:27017'
     environment:
       MONGO_INITDB_DATABASE: MediLaboSolutions
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootroot
+    networks:
+      - medilabosolution-app
 
   ms-patient:
     image: ms-patient
+    container_name: ms-patient
     depends_on:
       - mysqldb
     restart: always
@@ -38,9 +41,12 @@ services:
       MYSQL_USER: app_user
       MYSQL_PASSWORD: rootroot
       MYSQL_PORT: '3307'
+    networks:
+      - medilabosolution-app
 
   ms-notes:
     image: ms-notes
+    container_name: ms-notes
     depends_on:
       - mongodb
     restart: always
@@ -50,28 +56,52 @@ services:
       MONGO_HOST: mongodb
       MONGO_PORT: '27017'
       MONGO_DATABASE: MediLaboSolutions
-      MONGO_USERNAME: root
-      MONGO_PASSWORD: rootroot
+    networks:
+      - medilabosolution-app
 
   ms-diabetes-report:
     image: ms-diabetes-report
+    container_name: ms-diabetes-report
     depends_on:
       - ms-patient
       - ms-notes
     restart: always
     ports:
       - '8083:8083'
+    networks:
+      - medilabosolution-app
 
-  frontend:
-    image: angular-frontend
+  ms-gateway:
+    image: ms-gateway
+    container_name: ms-gateway
     depends_on:
       - ms-patient
       - ms-notes
       - ms-diabetes-report
     restart: always
     ports:
+    - '8080:8080'
+    networks:
+      - medilabosolution-app
+
+  frontend:
+    image: angular-frontend
+    container_name: angular-frontend
+    depends_on:
+      - ms-patient
+      - ms-notes
+      - ms-diabetes-report
+      - ms-gateway
+    restart: always
+    ports:
       - '4200:4200'
+    networks:
+      - medilabosolution-app
 
 volumes: 
   mysql_data: { }
   mongodb_data: 
+
+networks:
+  medilabosolution-app:
+    driver: bridge
