@@ -1,6 +1,7 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="noteForm">
     <section>
         <nav>
+            <app-logout></app-logout>
             <li><a [routerLink]="['/patients-list']">Patients list</a></li>
             <li><a [routerLink]="['/patient', patient?.id]">{{ patient?.lastName }} {{ patient?.firstName }}</a></li>
             <li><span>Add note</span></li>

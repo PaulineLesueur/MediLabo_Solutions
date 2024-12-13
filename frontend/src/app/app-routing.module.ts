@@ -5,6 +5,7 @@ import { PatientDetailComponent } from './patient-detail/patient-detail.componen
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AuthGuard } from './guards/auth.guard';
+import { NoteFormComponent } from './note-form/note-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'patient/:id', component: PatientDetailComponent, canActivate: [AuthGuard] },
   { path: 'patient/:id/update', component: PatientFormComponent, canActivate: [AuthGuard] },
   { path: 'patients-list/create-patient', component: PatientFormComponent, canActivate: [AuthGuard] },
+  { path: 'patient/:id/add-note', component: NoteFormComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: 'patients-list', pathMatch: 'full' },
   { path: '**', redirectTo: 'patients-list' }
 ];

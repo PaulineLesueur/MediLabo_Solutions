@@ -14,6 +14,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './guards/auth.guard';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NoteFormComponent } from './note-form/note-form.component';
 
 export function jwtOptionsFactory() {
   return {
@@ -29,6 +30,7 @@ export function jwtOptionsFactory() {
     PatientsListComponent,
     PatientDetailComponent,
     PatientFormComponent,
+    NoteFormComponent,
     LoginFormComponent,
     LogoutComponent,
   ],
