@@ -11,10 +11,14 @@ public class GatewayConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("ms-patients", r -> r.path("/**")
+                // Route pour ms-patient
+                .route("ms-patients", r -> r.path("/patient/**", "/patients/**")
                         .filters(f -> f.preserveHostHeader())
                         .uri("http://localhost:8081"))
+                // Route pour ms-notes
+                .route("ms-notes", r -> r.path("/notes/**")
+                        .filters(f -> f.preserveHostHeader())
+                        .uri("http://localhost:8082"))
                 .build();
     }
-
 }
