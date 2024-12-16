@@ -14,7 +14,6 @@ export class AuthService {
     private jwtHelper: JwtHelperService
   ) {}
 
-  // Connexion de l'utilisateur avec un username et un mot de passe
   login(username: string, password: string): Observable<string> {
     const headers = new HttpHeaders({
       Authorization: `Basic ${btoa(`${username}:${password}`)}`,
@@ -26,26 +25,45 @@ export class AuthService {
     });
   }
 
-  // Sauvegarde du token dans le localStorage
   saveToken(token: string): void {
     localStorage.setItem('auth_token', token);
     console.log('Token saved:', token);
   }
 
-  // Suppression du token lors de la déconnexion
   logout(): void {
     localStorage.removeItem('auth_token');
     console.log('Token deleted');
   }
 
-  // Vérifie si l'utilisateur est authentifié
   isAuthenticated(): boolean {
     const token = localStorage.getItem('auth_token');
     return token != null && !this.jwtHelper.isTokenExpired(token);
   }
 
-  // Récupère le token depuis le localStorage
   getToken(): string | null {
     return localStorage.getItem('auth_token');
+  }
+
+  getRoles(): string[] {
+    const token = localStorage.getItem('auth_token');
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken?.roles || []; 
+    }
+    return [];
+  }
+
+  hasRole(role: string): boolean {
+    const roles = this.getRoles();
+    return roles.includes(role);
+  }
+
+  getUsername(): String | null {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);  
+      return decodedToken?.sub ? decodedToken.sub : null; 
+    }
+    return null;
   }
 }

@@ -7,12 +7,16 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './logout.component.html',
 })
 export class LogoutComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onLogout() {
     this.authService.logout(); // Déconnexion
     this.router.navigate(['/login']); // Redirection vers la page de login
+  }
+
+  get username(): String | null {
+    return this.authService.getUsername();
   }
 }

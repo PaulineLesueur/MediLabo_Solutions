@@ -1,5 +1,6 @@
 <section>
     <nav>
+        <app-logout></app-logout>
         <li><a [routerLink]="['/patients-list']">Patients list</a></li>
         <li><span>{{ patient?.lastName }} {{ patient?.firstName }}</span></li>
     </nav>
@@ -7,20 +8,22 @@
     <h3>Patient detail - {{ patient?.lastName }} {{ patient?.firstName }}</h3>
     <div class="container">
         <div class="diabet-rapport">
-            <div *ngIf="diabetesRisk === 'NONE'" class="tag none">
-                Diabetes risk : None
-            </div>
-            <div *ngIf="diabetesRisk === 'BORDERLINE'" class="tag borderline">
-                Diabetes risk : Borderline
-            </div>
-            <div *ngIf="diabetesRisk === 'IN_DANGER'" class="tag danger">
-                Diabetes risk : In danger
-            </div>
-            <div *ngIf="diabetesRisk === 'EARLY_ONSET'" class="tag early">
-                Diabetes risk : Early Onset
+            <div *ngIf="authService.hasRole('ROLE_PRACTITIONER')">
+                <div *ngIf="diabetesRisk === 'NONE'" class="tag none">
+                    Diabetes risk : None
+                </div>
+                <div *ngIf="diabetesRisk === 'BORDERLINE'" class="tag borderline">
+                    Diabetes risk : Borderline
+                </div>
+                <div *ngIf="diabetesRisk === 'IN_DANGER'" class="tag danger">
+                    Diabetes risk : In danger
+                </div>
+                <div *ngIf="diabetesRisk === 'EARLY_ONSET'" class="tag early">
+                    Diabetes risk : Early Onset
+                </div>
             </div>
         </div>
-        <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'update']">Update patient detail</button>
+        <button  *ngIf="patient && authService.hasRole('ROLE_ORGANIZER')" [routerLink]="['/patient', patient.id, 'update']">Update patient detail</button>
     </div>
 
     <ul class="detail">
@@ -50,17 +53,19 @@
         </li>
     </ul>
 
-    <div class="container notes">
-        <h4>Notes :</h4>
-        <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'add-note']">Add note</button>
+    <div class="container-notes" *ngIf="authService.hasRole('ROLE_PRACTITIONER')">
+        <div class="container notes">
+            <h4>Notes :</h4>
+            <button *ngIf="patient" [routerLink]="['/patient', patient.id, 'add-note']">Add note</button>
+        </div>
+    
+        <ul class="notes" *ngIf="notes.length > 0; else noNotes">
+            <li *ngFor="let note of notes">
+                <span>{{ note. note }}</span>
+            </li>
+        </ul>
+        <ng-template #noNotes>
+            <p class="notes">No note found for this patient...</p>
+        </ng-template>
     </div>
-
-    <ul class="notes" *ngIf="notes.length > 0; else noNotes">
-        <li *ngFor="let note of notes">
-            <span>{{ note. note }}</span>
-        </li>
-    </ul>
-    <ng-template #noNotes>
-        <p class="notes">No note found for this patient...</p>
-    </ng-template>
 </section>

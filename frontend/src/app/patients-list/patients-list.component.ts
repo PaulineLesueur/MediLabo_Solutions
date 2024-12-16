@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from '../services/patient.service';
 import { Patient } from '../models/patient';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-patients-list',
@@ -14,7 +15,7 @@ export class PatientsListComponent implements OnInit {
   totalPatients: number = 0;
   pagesArray: number[] = [];
 
-  constructor(private patientService: PatientService) {
+  constructor(private patientService: PatientService, public authService: AuthService) {
   }
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { PatientService } from '../services/patient.service';
 import { Note } from '../models/note';
 import { NoteService } from '../services/note.service';
 import { DiabeteReportService } from '../services/diabete-report.service'
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-patient-detail',
@@ -16,7 +17,7 @@ export class PatientDetailComponent implements OnInit {
   notes: Note[] = [];
   diabetesRisk: string | undefined;
 
-  constructor(private route: ActivatedRoute, private patientService: PatientService, private noteService: NoteService, private diabetesReportService: DiabeteReportService) { 
+  constructor(private route: ActivatedRoute, private patientService: PatientService, private noteService: NoteService, private diabetesReportService: DiabeteReportService, public authService: AuthService) { 
   }
 
   ngOnInit(): void {
