@@ -19,7 +19,6 @@ services:
     image: mongo
     volumes:
       - mongodb_data:/data/db
-      - ./ms-notes/database/init-db.js:/docker-entrypoint-initdb.d/init-db.js
     restart: always
     ports:
       - '27018:27017'

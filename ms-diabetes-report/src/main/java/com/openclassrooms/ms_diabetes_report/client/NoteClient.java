@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "ms-note", url = "http://localhost:8082")
+@FeignClient(name = "ms-note", url = "http://ms-notes:8082")
 public interface NoteClient {
     @GetMapping("/notes/{patId}")
     List<NoteDTO> getNotesByPatientId(@PathVariable("patId") int patId);
