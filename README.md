@@ -8,14 +8,14 @@ MediLabo Solution is splited into 4 backend microservices and one for the fronte
 <hr />
 <h2>How to launch the app</h2>
 First of all, you need to dowload the projet in any way to have it on your computer and make sure you have <a href="https://www.docker.com/">docker</a> installed on it. The next step is to build the 5 docker images, on per microservice. Here's the process :<br />
-> - open your terminal and navigate into the ms-patient folder<br />
-> - run the following command on your terminal : `docker build -t ms-patient .`<br />
-> - navigate into the ms-notes folder<br />
-> - run the following command on your terminal : `docker build -t ms-notes .`<br />
-> - do the same for each microservice using those specifics image names :<br />
-> ms-diabetes-report : `docker build -t ms-diabetes-report .`<br />
-> ms-api-gateway : `docker build -t ms-gateway .`<br />
-> frontend : `docker build -t angular-frontend .`<br /><br />
+- open your terminal and navigate into the ms-patient folder<br />
+- run the following command on your terminal : `docker build -t ms-patient .`<br />
+- navigate into the ms-notes folder<br />
+- run the following command on your terminal : `docker build -t ms-notes .`<br />
+- do the same for each microservice using those specifics image names :<br />
+ms-diabetes-report : `docker build -t ms-diabetes-report .`<br />
+ms-api-gateway : `docker build -t ms-gateway .`<br />
+frontend : `docker build -t angular-frontend .`<br /><br />
 
 Next, you need to build the docker container. Go back to the main folder (named MediLabo_Solutions) in your terminal. Run the following command : `docker-compose up -d`<br /><br />
 
