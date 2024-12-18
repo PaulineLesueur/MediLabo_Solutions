@@ -28,17 +28,14 @@ public class DataSeeder implements CommandLineRunner {
         TypeReference<List<Note>> typeReference = new TypeReference<List<Note>>() {};
         InputStream inputStream = new ClassPathResource("database/data.json").getInputStream();
 
-// Charge le JSON brut
         List<Map<String, Object>> rawNotes = mapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
 
-// Renomme "_id" en "id"
         rawNotes.forEach(note -> {
             if (note.containsKey("_id")) {
                 note.put("id", note.remove("_id"));
             }
         });
 
-// Convertit en objets Note
         List<Note> notes = mapper.convertValue(rawNotes, typeReference);
         noteRepository.saveAll(notes);
 
