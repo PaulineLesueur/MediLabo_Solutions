@@ -32,7 +32,6 @@ password : demo
 <hr />
 <h2>Green Code improvments recommandations (content in french)</h2>
 - mettre en mémoire les résultats des appels des microservices<br />
-- réduire la taille des images Docker en utilisant des images plus petites comme Alpine<br />
 - réduire les logs en production <br />
 - compresser les réponses JSON <br />
 - réduire les champs DTO pour supprimer ceux qui ne sont pas utilisés
